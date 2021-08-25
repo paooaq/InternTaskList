@@ -10,12 +10,10 @@
 - name: Start the MySQL service
   action: service name=mysql state=started
 
-- name: Copy file with owner and permissions
-  ansible.builtin.copy:
-    src: .my.cnf
-    owner: "foo"
-    group: "foo"
-    mode: '0644'
+- name: Copy .my.cnf file with root password credentials
+  become: true
+  become_user: root
+  file: src=.my.cnf dest=/root/.my.cnf owner=root mode=0644
 
 - name: Set root user password
   become: true
