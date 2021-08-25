@@ -13,8 +13,6 @@
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
     src: .my.cnf
-    owner: foo
-    group: foo
     mode: '0644'
 
 - name: Set root user password
@@ -25,7 +23,7 @@
     host: "{{ item }}"
     password: "{{ mysql_root_password }}"
     priv: "*.*:ALL,GRANT"
-  with_items: {{ list_ip }}
+  with_items: {{list_ip}}
 
 - name: Create mysql user
   become: true
