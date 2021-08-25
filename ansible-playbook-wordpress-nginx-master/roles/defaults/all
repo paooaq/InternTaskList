@@ -1,0 +1,7 @@
+#php version
+php_vesion:
+    - php7.0
+    - php7.0-mysql
+    - php7.0-gd
+    - php-ssh2
+    - php7.0-mcrypt

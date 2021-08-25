@@ -14,6 +14,13 @@ server_hostname: client-1
 wp_version: 4.7.5
 wp_sha1sum: fbe0ee1d9010265be200fe50b86f341587187302
 
+#list ip
+list_ip:    
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
 #Define Core Update Level
 #true  = Development, minor, and major updates are all enabled
 #false = Development, minor, and major updates are all disabled

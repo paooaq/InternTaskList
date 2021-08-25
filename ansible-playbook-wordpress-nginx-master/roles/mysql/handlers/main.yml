@@ -1,2 +1,5 @@
 ---
 # handlers file for mysql
+- name: Start the MySQL service
+  service: name=mysql state=started
+  become: true
