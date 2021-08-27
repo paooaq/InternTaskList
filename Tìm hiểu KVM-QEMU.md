@@ -8,7 +8,7 @@
 
 2. ### KVM Stack
 
-   ![image-20210827114938289](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210827114938289.png)
+   ![img](https://camo.githubusercontent.com/81f5d6a46569129987e76719f22b72e66b34dcc8ee43421d4ea06e98256417d7/687474703a2f2f692e696d6775722e636f6d2f45467a434841452e706e67)
 
    KVM Stack bao gồm 4 tầng:
 
@@ -24,7 +24,7 @@
       Khi QEMU hoạt động như một trình giả lập, nó có khả năng chạy các hệ điều hành / chương trình được tạo cho một loại máy trên một loại máy khác nhau.Nó chỉ sử dụng các phương pháp dịch nhị phân. Trong chế độ này, QEMU mô phỏng CPU thông qua các kỹ thuật dịch nhị phân động và cung cấp một tập hợp các mô hình thiết bị. Do đó, nó được kích hoạt để chạy các hệ điều hành khách không sửa đổi khác nhau với các kiến trúc khác nhau. Bản dịch nhị phân là cần thiết ở đây vì mã khách có được thực thi trong CPU chủ. Trình dịch nhị phân thực hiện công việc này được gọi là Tiny 
       Code Generator (TCG); nó là một trình biên dịch Just-In-Time (JIT). Nó biến đổi mã nhị phân được viết cho một bộ xử lý nhất định thành một dạng mã nhị phân khác:
 
-      ![image-20210827124157609](https://github.com/paooaq/InternTaskList/image/qemu_as_emulator)
+      
 
       Bằng cách sử dụng phương pháp này, QEMU có thể hy sinh một chút tốc độ thực thi cho phạm vi rộng hơn nhiều
       tính tương thích.
