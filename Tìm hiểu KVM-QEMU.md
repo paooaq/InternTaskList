@@ -24,11 +24,7 @@
       Khi QEMU hoạt động như một trình giả lập, nó có khả năng chạy các hệ điều hành / chương trình được tạo cho một loại máy trên một loại máy khác nhau.Nó chỉ sử dụng các phương pháp dịch nhị phân. Trong chế độ này, QEMU mô phỏng CPU thông qua các kỹ thuật dịch nhị phân động và cung cấp một tập hợp các mô hình thiết bị. Do đó, nó được kích hoạt để chạy các hệ điều hành khách không sửa đổi khác nhau với các kiến trúc khác nhau. Bản dịch nhị phân là cần thiết ở đây vì mã khách có được thực thi trong CPU chủ. Trình dịch nhị phân thực hiện công việc này được gọi là Tiny 
       Code Generator (TCG); nó là một trình biên dịch Just-In-Time (JIT). Nó biến đổi mã nhị phân được viết cho một bộ xử lý nhất định thành một dạng mã nhị phân khác:
 
-<<<<<<< HEAD
-      
-=======
       ![qemu_as_emulator](https://user-images.githubusercontent.com/62655597/131079559-1d1fd3fa-4f8b-4736-b6fb-12eaff3b7564.PNG)
->>>>>>> 41ab052c4c34624e707d07f72bb7cb261930d274
 
       Bằng cách sử dụng phương pháp này, QEMU có thể hy sinh một chút tốc độ thực thi cho phạm vi rộng hơn nhiều
       tính tương thích.
