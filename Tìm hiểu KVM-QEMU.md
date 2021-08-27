@@ -24,7 +24,7 @@
       Khi QEMU hoạt động như một trình giả lập, nó có khả năng chạy các hệ điều hành / chương trình được tạo cho một loại máy trên một loại máy khác nhau.Nó chỉ sử dụng các phương pháp dịch nhị phân. Trong chế độ này, QEMU mô phỏng CPU thông qua các kỹ thuật dịch nhị phân động và cung cấp một tập hợp các mô hình thiết bị. Do đó, nó được kích hoạt để chạy các hệ điều hành khách không sửa đổi khác nhau với các kiến trúc khác nhau. Bản dịch nhị phân là cần thiết ở đây vì mã khách có được thực thi trong CPU chủ. Trình dịch nhị phân thực hiện công việc này được gọi là Tiny 
       Code Generator (TCG); nó là một trình biên dịch Just-In-Time (JIT). Nó biến đổi mã nhị phân được viết cho một bộ xử lý nhất định thành một dạng mã nhị phân khác:
 
-      ![image-20210827124157609](https://github.com/paooaq/InternTaskList/image/qemu_as_emulator)
+      ![qemu_as_emulator](https://user-images.githubusercontent.com/62655597/131079559-1d1fd3fa-4f8b-4736-b6fb-12eaff3b7564.PNG)
 
       Bằng cách sử dụng phương pháp này, QEMU có thể hy sinh một chút tốc độ thực thi cho phạm vi rộng hơn nhiều
       tính tương thích.
@@ -33,8 +33,9 @@
 
       QEMU là có khả năng chạy mà không cần KVM bằng cách sử dụng phương pháp dịch nhị phân nói trên.
       Quá trình thực thi này sẽ chậm hơn so với ảo hóa tăng tốc phần cứng được bật bởi KVM. Trong bất kỳ chế độ nào, với tư cách là trình ảo hóa hoặc trình giả lập, QEMU không chỉ mô phỏng bộ xử lý; nó cũng mô phỏng các thiết bị ngoại vi khác nhau, chẳng hạn như đĩa, mạng, VGA, PCI, cổng nối tiếp và song song, USB, v.v. Ngoài mô phỏng thiết bị I/O này, khi làm việc với KVM, QEMU-KVM tạo và khởi tạo các máy ảo. Như hình trong sơ đồ sau, nó cũng khởi tạo các luồng POSIX khác nhau cho mỗi CPU (vCPU) của khách. Nó cũng cung cấp một khuôn khổ được sử dụng để mô phỏng không gian địa chỉ vật lý của máy trong không gian địa chỉ chế độ người dùng của QEMU-KVM:
+![QEMU_as_a_virtualizer](https://user-images.githubusercontent.com/62655597/131079596-aede51f0-e78e-4e41-828c-3a6375a4f116.PNG)
 
-      ![](https://github.com/paooaq/InternTaskList/image/QEMU_as_a_virtualizer)
+      
 
 4. ## KVM - QEMU
 
