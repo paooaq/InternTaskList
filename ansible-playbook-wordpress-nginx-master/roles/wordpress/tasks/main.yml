@@ -15,7 +15,7 @@
 - name: Download WordPress
   get_url: 
     url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz 
-    dest: /tmp/www/{{server_hostname}}
+    dest: /tmp/{{server_hostname}}
 
 - name: Extract WordPress
   unarchive:
