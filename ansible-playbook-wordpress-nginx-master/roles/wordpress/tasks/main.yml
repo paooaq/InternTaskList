@@ -15,10 +15,7 @@
 - name: Download WordPress
   get_url: 
     url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz 
-    dest: /tmp/wordpress-{{ wp_version }}.tar.gz 
-    checksum: "sha1:{{ wp_sha1sum }}" 
-  become: yes
-  when: not check_path.stat.exists
+    dest: /tmp  
 
 - name: Extract WordPress
   unarchive:
