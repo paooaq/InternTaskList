@@ -66,6 +66,8 @@ Việc cài đặt và cấu hình các máy chủ thường được ghi chép 
         ***=>không đặt ssh key ở thư mục mặc định do rất có thể có nhiều người quản trị cùng tham gia quản lý***
 
      2. Copy keyfile sang agent:
+	vi /etc/ssh/sshd_config => PasswordAuthentication yes
+	service sshd reload
 
         **$ ssh-copy-id -i /etc/ansible/ansible_key.pub ansible@[ip_server_agent]**
 
