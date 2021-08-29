@@ -2,7 +2,7 @@
 - name: Create webroot
   file:
     state: directory
-    path: /srv/www/
+    path: /srv/www/{{server_hostname}}
     owner: root
     group: root
     mode: 0755
