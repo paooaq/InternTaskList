@@ -29,6 +29,6 @@
   become: no
 
 - name: Add wp-config
-  template: "src=wp-config.php dest=/srv/www/{{server_hostname}}/wp-config.php"
+  template: "src=wp-config.php dest=/srv/www/wordpress/wp-config.php"
   become: yes
 
