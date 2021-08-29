@@ -2,7 +2,7 @@
 - name: Create webroot
   file:
     state: directory
-    path: /srv/www/{{server_hostname}}
+    path: /srv/www/
     owner: root
     group: root
     mode: 0755
@@ -15,7 +15,7 @@
 - name: Download WordPress
   get_url: 
     url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz 
-    dest: /tmp  
+    dest: /tmp/www/{{server_hostname}}
 
 - name: Extract WordPress
   unarchive:
@@ -24,7 +24,7 @@
     remote_src: yes
 
 - name: Move WordPress install files
-  command: mv /tmp/wordpress /srv/www/{{server_hostname}}
+  command: mv /tmp/wordpress-{{wp_version}} /srv/www/{{server_hostname}}
   become: yes
 
 - name: Add wp-config
