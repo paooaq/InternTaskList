@@ -15,17 +15,13 @@
 - name: Download WordPress
   get_url: 
     url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz 
-    dest: /tmp/{{server_hostname}}
+    dest: /srv/www/{{server_hostname}}
 
 - name: Extract WordPress
   unarchive:
-    src: /tmp/wordpress-{{ wp_version }}.tar.gz
-    dest: /tmp
+    src: /srv/www/wordpress-{{ wp_version }}.tar.gz
+    dest: /srv/www
     remote_src: yes
-
-- name: Move WordPress install files
-  command: mv /tmp/wordpress-{{wp_version}} /srv/www/{{server_hostname}}
-  become: yes
 
 - name: Add wp-config
   template: "src=wp-config.php dest=/srv/www/{{server_hostname}}/wp-config.php"
