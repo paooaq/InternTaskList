@@ -56,7 +56,7 @@ Một số khái niệm liên quan tới linux bridge:
 
 \-	**FDB**: chuyển tiếp các gói tin theo database để nâng cao hiệu năng switch.
 
-# 3.	Ghi chép về một số khái niệm liên quan
+# 3. Một số khái niệm liên quan
 
 ## 3.1.	Port
 
