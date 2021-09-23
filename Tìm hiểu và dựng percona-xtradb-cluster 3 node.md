@@ -55,4 +55,193 @@
         ```
         sudo apt-get update
         ```
+        
+      - enable-only PXC-80 release
+      
+        ```
+        sudo percona-release enable-only pxc-80 experimental
+        sudo percona-release enable tools release
+        ```
+      
+      - install percona extradb cluster :
+      
+        ```
+        sudo apt update
+        sudo apt-get install percona-xtradb-cluster
+        ```
+      
+   3. #### Cấu hình động bộ giữa các node
+   
+      - Dừng dịch vụ mysql trước khi cấu hình
+   
+        ```
+        systemctl stop mysqld
+        ```
+   
+      - Cấu hình mỗi server (/etc/my.cnf)
+   
+        1. Cấu hình node 1:
+   
+           ```
+           [mysqld]
+           
+           datadir=/var/lib/mysql
+           user=mysql
+           
+           # Path to Galera library
+           wsrep_provider=/usr/lib/libgalera_smm.so
+           
+           # Cluster connection URL contains the IPs of node#1, node#2 and node#3
+           wsrep_cluster_address=gcomm://192.168.30.192,192.168.30.136,192.168.30.174
+           
+           # In order for Galera to work correctly binlog format should be ROW
+           binlog_format=ROW
+           
+           # MyISAM storage engine has only experimental support
+           default_storage_engine=InnoDB
+           
+           # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+           innodb_autoinc_lock_mode=2
+           
+           # Node #1 address
+           wsrep_node_address=192.168.30.192
+           
+           # SST method
+           wsrep_sst_method=xtrabackup-v2
+           
+           # Cluster name
+           wsrep_cluster_name=my_ubuntu_cluster
+           
+           # Authentication for SST method
+           wsrep_sst_auth="sstuser:s3cretPass"
+           ```
+   
+        2. Cấu hình node 2:
+   
+           ```
+           [mysqld]
+           
+           datadir=/var/lib/mysql
+           user=mysql
+           
+           # Path to Galera library
+           wsrep_provider=/usr/lib/libgalera_smm.so
+           
+           # Cluster connection URL contains IPs of node#1, node#2 and node#3
+           wsrep_cluster_address=gcomm://192.168.30.192,192.168.30.136,192.168.30.174
+           
+           # In order for Galera to work correctly binlog format should be ROW
+           binlog_format=ROW
+           
+           # MyISAM storage engine has only experimental support
+           default_storage_engine=InnoDB
+           
+           # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+           innodb_autoinc_lock_mode=2
+           
+           # Node #2 address
+           wsrep_node_address=192.168.30.136
+           
+           # Cluster name
+           wsrep_cluster_name=my_ubuntu_cluster
+           
+           # SST method
+           wsrep_sst_method=xtrabackup-v2
+           
+           #Authentication for SST method
+           wsrep_sst_auth="sstuser:s3cretPass"
+           ```
+   
+        3. Cấu hình node 3:
+   
+           ```
+           [mysqld]
+           
+           datadir=/var/lib/mysql
+           user=mysql
+           
+           # Path to Galera library
+           wsrep_provider=/usr/lib/libgalera_smm.so
+           
+           # Cluster connection URL contains IPs of node#1, node#2 and node#3
+           wsrep_cluster_address=gcomm://192.168.30.192,192.168.30.136,192.168.30.174
+           
+           # In order for Galera to work correctly binlog format should be ROW
+           binlog_format=ROW
+           
+           # MyISAM storage engine has only experimental support
+           default_storage_engine=InnoDB
+           
+           # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+           innodb_autoinc_lock_mode=2
+           
+           # Node #3 address
+           wsrep_node_address=192.168.30.174
+           
+           # Cluster name
+           wsrep_cluster_name=my_ubuntu_cluster
+           
+           # SST method
+           wsrep_sst_method=xtrabackup-v2
+           
+           #Authentication for SST method
+           wsrep_sst_auth="sstuser:s3cretPass"
+           ```
+   
+   4. #### Khởi động dịch vụ mysql trên từng node
+   
+      - node 1
+   
+        ```
+        systemctl start mysqld@bootstrap.service
+        ```
+   
+      - node 2&3
+   
+        ```
+        systemctl start mysqld
+        ```
+   
+   5. #### Kiểm tra tính năng đồng bộ
+   
+      - Tạo database mới trên node 2:
+   
+        ```
+        mysql@pxc2> CREATE DATABASE percona;
+        Query OK, 1 row affected (0.01 sec)
+        ```
+   
+      - Tạo bảng example trên node thứ 3:
+   
+        ```
+        mysql@pxc3> USE percona;
+        Database changed
+        
+        mysql@pxc3> CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
+        Query OK, 0 rows affected (0.05 sec)
+        ```
+   
+      - Chèn bản ghi trên node 1:
+   
+        ```
+        mysql@pxc1> INSERT INTO percona.example VALUES (1, 'percona1');
+        Query OK, 1 row affected (0.02 sec)
+        ```
+   
+      - Truy xuất tất cả hàng trên node 2:
+   
+        ```
+        mysql@pxc2> SELECT * FROM percona.example;
+        +---------+-----------+
+        | node_id | node_name |
+        +---------+-----------+
+        |       1 | percona1  |
+        +---------+-----------+
+        1 row in set (0.00 sec)
+        ```
 
+## Tài liệu tham khảo
+
+https://www.percona.com/doc/percona-xtradb-cluster/5.6/howtos/ubuntu_howto.html
+
+https://blog.vinahost.vn/cau-hinh-percona-xtradb-cluster-8-0-tren-centos-7
