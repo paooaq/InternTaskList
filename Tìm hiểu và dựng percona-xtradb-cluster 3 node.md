@@ -246,7 +246,7 @@
    
       1. Một nút dừng lại 1 cách có mục đích (ví dụ node 2 )
    
-         ![image-20211004101333830](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004101333830.png)
+         ![image-20211004101333830](D:\OneDrive\FPT\tasklist\image\image-20211004101333830.png)
    
          Trạng thái khi xem từ node 1khi tắt và bật node 2
       
@@ -254,15 +254,15 @@
       
       2. Hai nút dừng lại 1 cách có mục đích ( node 2 và node 3)
       
-         ![image-20211004103758763](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004103758763.png)
+         ![image-20211004103758763](D:\OneDrive\FPT\tasklist\image\image-20211004103758763.png)
       
          Trạng thái trên node 1 và thêm dữ liệu vào database
       
-         ![image-20211004104005707](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004104005707.png)
+         ![image-20211004104005707](D:\OneDrive\FPT\tasklist\image\image-20211004104005707.png)
       
          Khởi động node 2 kiểm tra cluster_size và truy xuất dữ liệu
       
-         ![image-20211004104212017](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004104212017.png)
+         ![image-20211004104212017](D:\OneDrive\FPT\tasklist\image\image-20211004104212017.png)
       
          Khởi động node 3 kiểm tra cluster size và truy xuất dữ liệu
       
@@ -270,7 +270,7 @@
       
          Khi đó mình sẽ so sánh chỉ số seqno trong tệp /var/lib/mysql/grastate.dat, node nào có chỉ số cao nhất thì node đó khả năng cao nhất là node cuối cùng
       
-         ![image-20211004152421067](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004152421067.png)
+         ![image-20211004152421067](D:\OneDrive\FPT\tasklist\image\image-20211004152421067.png)
       
          khi đó mình khởi động node đầu tiên trên node có chỉ số seqno cao nhất qua lệnh 
       
@@ -284,7 +284,7 @@
       
          Tìm node `safe_to_bootstrap: 1` và khởi động node đó thành node đầu tiên
       
-         ![image-20211004153014440](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004153014440.png)
+         ![image-20211004153014440](D:\OneDrive\FPT\tasklist\image\image-20211004153014440.png)
       
          
 
