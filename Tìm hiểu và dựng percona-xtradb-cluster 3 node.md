@@ -75,10 +75,10 @@
       - Dừng dịch vụ mysql trước khi cấu hình
    
         ```
-        systemctl stop mysqld
+        systemctl stop mysql
         ```
    
-      - Cấu hình mỗi server (/etc/my.cnf)
+      - Cấu hình mỗi server (/etc/mysql/mysql.conf.d/mysqld.cnf)
    
         1. Cấu hình node 1:
    
@@ -194,12 +194,14 @@
    
         ```
         systemctl start mysqld@bootstrap.service
+        systemctl stop mysql@bootstrap.service
+        systemctl start mysql
         ```
    
       - node 2&3
    
         ```
-        systemctl start mysqld
+        systemctl start mysql
         ```
    
    5. #### Kiểm tra tính năng đồng bộ
@@ -239,6 +241,52 @@
         +---------+-----------+
         1 row in set (0.00 sec)
         ```
+      
+   6. #### Kiểm tra tính năng Recovery
+   
+      1. Một nút dừng lại 1 cách có mục đích (ví dụ node 2 )
+   
+         ![image-20211004101333830](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004101333830.png)
+   
+         Trạng thái khi xem từ node 1khi tắt và bật node 2
+      
+         Khi node 2 khởi động lại thì nó tự tham gia lại vào cụm dựa trên biến **wsrep_cluster_address**
+      
+      2. Hai nút dừng lại 1 cách có mục đích ( node 2 và node 3)
+      
+         ![image-20211004103758763](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004103758763.png)
+      
+         Trạng thái trên node 1 và thêm dữ liệu vào database
+      
+         ![image-20211004104005707](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004104005707.png)
+      
+         Khởi động node 2 kiểm tra cluster_size và truy xuất dữ liệu
+      
+         ![image-20211004104212017](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004104212017.png)
+      
+         Khởi động node 3 kiểm tra cluster size và truy xuất dữ liệu
+      
+      3. Cả 3 node đều dừng 1 cách có mục đích
+      
+         Khi đó mình sẽ so sánh chỉ số seqno trong tệp /var/lib/mysql/grastate.dat, node nào có chỉ số cao nhất thì node đó khả năng cao nhất là node cuối cùng
+      
+         ![image-20211004152421067](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004152421067.png)
+      
+         khi đó mình khởi động node đầu tiên trên node có chỉ số seqno cao nhất qua lệnh 
+      
+         ```
+         systemctl start mysql@bootstrap.service
+         ```
+      
+      4. Cả 3 node dừng một cách bất ngờ
+      
+         Tình huống này có thể xảy ra trong trường hợp mất điện trung tâm dữ liệu hoặc khi gặp lỗi MySQL hoặc Galera. Ngoài ra, nó có thể xảy ra do tính nhất quán của dữ liệu bị xâm phạm trong đó cụm phát hiện rằng mỗi nút có dữ liệu khác nhau. Các `grastate.dat`tập tin không được cập nhật và không chứa một số thứ tự hợp lệ (seqno). 
+      
+         Tìm node `safe_to_bootstrap: 1` và khởi động node đó thành node đầu tiên
+      
+         ![image-20211004153014440](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20211004153014440.png)
+      
+         
 
 ## Tài liệu tham khảo
 
