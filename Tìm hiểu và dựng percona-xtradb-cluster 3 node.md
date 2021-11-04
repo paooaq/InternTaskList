@@ -193,17 +193,15 @@
       - node 1
    
         ```
-        systemctl start mysqld@bootstrap.service
-        systemctl stop mysql@bootstrap.service
-        systemctl start mysql
+        systemctl start mysql@bootstrap.service
         ```
-   
+        
       - node 2&3
    
         ```
         systemctl start mysql
         ```
-   
+      
    5. #### Kiểm tra tính năng đồng bộ
    
       - Tạo database mới trên node 2:
